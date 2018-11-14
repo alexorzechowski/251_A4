@@ -19,10 +19,10 @@ public class Multiply{
     	//Find split point
     	int m= (int) Math.ceil(size/2);
     	int a =	x>>m; //Shift to the right by m (Move binary point left)
-    	int b = x&((1<<m)-1); //Get x mod 2^m
+    	int b = x&m; //Get x mod 2^m
     	
     	int c=y>>m;
-    	int d=y&((1<<m)-1);
+    	int d=y&m;
     	
     	int[] e=naive(m,a,c);
     	int[] f=naive(m,b,d);
@@ -43,9 +43,9 @@ public class Multiply{
     	}
         int m = (int) Math.ceil(size/2);
         int a =	x>>m; //Shift to the right by m (Move binary point left)
-    	int b = x&((1<<m)-1); //Get x mod 2^m
+    	int b = x&m; //Get x mod 2^m
     	int c=y>>m;
-    	int d=y&((1<<m)-1);
+    	int d=y&m;
     	int[] e=naive(m,a,c);
     	int[] f=naive(m,b,d);
     	int[] g=naive(m,a-b,c-d);

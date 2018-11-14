@@ -18,18 +18,18 @@ public class Multiply{
     	}
     	//Find split point
     	int m= (int) Math.ceil(size/2);
-    	int a =	x>>m; //Shift to the right by m (Move binary point left)
-    	int b = x&((1<<m)-1); //Get x mod 2^m
+    	int a =	x<<m; //Shift to the left by m
+    	int b = x&m; //Get x mod 2^m
     	
-    	int c=y>>m;
-    	int d=y&((1<<m)-1);
+    	int c=y<<m;
+    	int d=y&m;
     	
     	int[] e=naive(m,a,c);
     	int[] f=naive(m,b,d);
     	int[] g=naive(m,b,c);
     	int[] h=naive(m,a,d);
         
-    	int[] result ={ (e[0]<<(m<<1)) + ((g[0]+h[0])<<m) +f[0], 3*m + e[1]+f[1]+g[1]+h[1]};
+    	int[] result ={ (e[0]>>(m>>1)) + ((g[0]+h[0])>>m) +f[0], 3*m + e[1]+f[1]+g[1]+h[1]};
         return result;
         
     }
@@ -42,15 +42,15 @@ public class Multiply{
     		return result;
     	}
         int m = (int) Math.ceil(size/2);
-        int a =	x>>m; //Shift to the right by m (Move binary point left)
-    	int b = x&((1<<m)-1); //Get x mod 2^m
-    	int c=y>>m;
-    	int d=y&((1<<m)-1);
+        int a =	x<<m; //Shift to the left by m
+    	int b = x&m; //Get x mod 2^m
+    	int c=y<<m;
+    	int d=y&m;
     	int[] e=naive(m,a,c);
     	int[] f=naive(m,b,d);
     	int[] g=naive(m,a-b,c-d);
     	
-    	int[] result = { (e[0]<<(m<<1)) + ((e[0]+f[0]-g[0])<<m)+f[0], 6*m+e[1]+f[1]+g[1]};
+    	int[] result = { (e[0]>>(m>>1)) + ((e[0]+f[0]-g[0])>>m)+f[0], 6*m+e[1]+f[1]+g[1]};
         return result;
         
     }
@@ -60,7 +60,7 @@ public class Multiply{
         try{
             int maxRound = 20;
             int maxIntBitSize = 16;
-            for (int size=1; size<=maxIntBitSize; size++) {
+            for (int size=2; size<=maxIntBitSize; size++) {
                 int sumOpNaive = 0;
                 int sumOpKaratsuba = 0;
                 for (int round=0; round<maxRound; round++) {
